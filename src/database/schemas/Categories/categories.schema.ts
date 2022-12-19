@@ -10,4 +10,4 @@ export class Category {
   @Prop()
   description_category: string;
 }
-export const OrderSchema = SchemaFactory.createForClass(Category);
+export const CategorySchema = SchemaFactory.createForClass(Category);
