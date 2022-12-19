@@ -1,17 +1,29 @@
 import { Prop, SchemaFactory, Schema } from '@nestjs/mongoose';
-import { HydratedDocument } from 'mongoose';
+import mongoose, { HydratedDocument } from 'mongoose';
+import { Menu } from '../Menu/menu.schema';
 
-export type AdminDocument = HydratedDocument<Admin>;
+export type AdminDocument = HydratedDocument<Order>;
 
 @Schema()
-export class Admin {
+export class Order {
   @Prop()
-  name_admin: string;
-  @Prop()
-  position: string;
+  name_user;
   @Prop()
   phone: string;
   @Prop()
-  role: string;
+  direction_order: string;
+  @Prop()
+  type_pay: string;
+  @Prop({ required: false })
+  money_value: string;
+  @Prop({ required: false })
+  nequi_attachment: string;
+  @Prop({ type: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Menu' }] })
+  order_menu: Menu;
+  @Prop({
+    required: false,
+    type: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Menu' }],
+  })
+  order_aditional;
 }
-export const AdminSchema = SchemaFactory.createForClass(Admin);
+export const OrderSchema = SchemaFactory.createForClass(Order);
