@@ -8,6 +8,7 @@ import { Model } from 'mongoose';
 import { Admin, AdminDocument } from 'src/database/schemas/Admin/admin.schema';
 import { CreateUserAdminDto } from './dtos/input/createUserAdmin.dto';
 import * as bcrypt from 'bcrypt';
+import { UpdateUserAdminDto } from './dtos/input/updateUserAdmin.dto';
 
 @Injectable()
 export class AdminService {
@@ -39,14 +40,21 @@ export class AdminService {
     return findOne;
   }
 
-  public async updateAdmin(idAdmin: string) {
+  public async updateAdmin(
+    updateUserAdminDto: UpdateUserAdminDto,
+    idAdmin: string,
+  ) {
     const findOne = await this.adminModel.findOne({ id: idAdmin });
     if (!findOne) {
       throw new NotFoundException(
         `sorry this admin ${findOne.name_admin} does not exist`,
       );
     }
-    return findOne;
+    findOne.name_admin = updateUserAdminDto.name_admin;
+    findOne.position = updateUserAdminDto.position;
+    const saveAdmin = new this.adminModel(findOne);
+    const save = saveAdmin.save();
+    return save;
   }
 
   public async deleteAdmin(idAdmin: string) {

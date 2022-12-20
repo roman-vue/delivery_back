@@ -10,6 +10,7 @@ import {
 import { ApiTags } from '@nestjs/swagger';
 import { AdminService } from './admin.service';
 import { CreateUserAdminDto } from './dtos/input/createUserAdmin.dto';
+import { UpdateUserAdminDto } from './dtos/input/updateUserAdmin.dto';
 
 @ApiTags('ADMIN')
 @Controller('admin')
@@ -34,8 +35,14 @@ export class AdminController {
   }
 
   @Put('update-admin/:idAdmin')
-  public async updated(@Param('idAdmin') idAdmin: string) {
-    const data = await this.adminService.updateAdmin(idAdmin);
+  public async updated(
+    @Body() updateUserAdminDto: UpdateUserAdminDto,
+    @Param('idAdmin') idAdmin: string,
+  ) {
+    const data = await this.adminService.updateAdmin(
+      updateUserAdminDto,
+      idAdmin,
+    );
     return data;
   }
 
