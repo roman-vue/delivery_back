@@ -31,7 +31,7 @@ async function bootstrap() {
     logger.verbose('APP', `is running on http://localhost:${PORT}`);
     logger.verbose(
       'APP',
-      `Swagger is running on http://localhost:${{ PORT }}/api/v1/delivery/docs`,
+      `Swagger is running on http://localhost:${PORT}/api/v1/delivery/docs`,
     );
   });
 }

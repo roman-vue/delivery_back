@@ -10,7 +10,7 @@ export class SwaggerConfig {
       .build();
 
     const document = SwaggerModule.createDocument(app, config);
-    SwaggerModule.setup('api/v1/agenda/docs', app, document, {
+    SwaggerModule.setup('api/v1/delivery/docs', app, document, {
       swaggerOptions: {
         filter: true,
         showRequestDuration: true,

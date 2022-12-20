@@ -8,6 +8,8 @@ import { DatabaseModule } from './database/database.module';
 import { MenuModule } from './modules/menu/menu.module';
 import { OrdersModule } from './modules/orders/orders.module';
 import { AditionalsModule } from './modules/aditionals/aditionals.module';
+import { JwtModule } from './jwt/jwt.module';
+import { AuthModule } from './modules/auth/auth.module';
 
 @Module({
   imports: [
@@ -18,6 +20,8 @@ import { AditionalsModule } from './modules/aditionals/aditionals.module';
     MenuModule,
     OrdersModule,
     AditionalsModule,
+    JwtModule,
+    AuthModule,
   ],
   controllers: [AppController],
   providers: [AppService],
