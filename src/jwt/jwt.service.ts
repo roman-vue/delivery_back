@@ -4,11 +4,11 @@ import * as jwt from 'jsonwebtoken';
 @Injectable()
 export class JwtService {
   constructor(private configService: ConfigService) {}
-  public async generateToken(object: any) {
+  public async generateToken(sign: any) {
     try {
       const generate = jwt.sign(
         {
-          object,
+          sign,
         },
         `${process.env.ACCESS_TOKEN}`,
         { expiresIn: `${process.env.TIME}` },
