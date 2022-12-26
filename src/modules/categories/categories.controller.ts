@@ -9,7 +9,10 @@ import {
 } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
 import { CategoriesService } from './categories.service';
-import { CreateNewCategoryDto } from './dto/createCategory.dto';
+import {
+  CreateNewCategoryDto,
+  UpdatedCategoryDto,
+} from './dto/createCategory.dto';
 
 @ApiTags('CATEGORIES')
 @Controller('categories')
@@ -19,17 +22,40 @@ export class CategoriesController {
   @Post('create-new-category')
   public async createNewCategory(
     @Body() createNewCategoryDto: CreateNewCategoryDto,
-  ) {}
+  ) {
+    const data = await this.categoriesService.createCategory(
+      createNewCategoryDto,
+    );
+    return data;
+  }
 
   @Get('all-categories')
-  public async allCategories() {}
+  public async allCategories() {
+    const data = await this.categoriesService.allCategories();
+    return data;
+  }
 
   @Get('one-category/:idCategory')
-  public async oneCategory(@Param('idCategory') idCategory: string) {}
+  public async oneCategory(@Param('idCategory') idCategory: string) {
+    const data = await this.categoriesService.getOneCategory(idCategory);
+    return data;
+  }
 
   @Put('update-category/:idCategory')
-  public async updated(@Param('idCategory') idCategory: string) {}
+  public async updated(
+    @Param('idCategory') idCategory: string,
+    @Body() updatedCategoryDto: UpdatedCategoryDto,
+  ) {
+    const data = await this.categoriesService.updated(
+      idCategory,
+      updatedCategoryDto,
+    );
+    return data;
+  }
 
   @Delete('delete-category/:idCategory')
-  public async deleted(@Param('idCategory') idCategory: string) {}
+  public async deleted(@Param('idCategory') idCategory: string) {
+    const data = await this.categoriesService.deleted(idCategory);
+    return data;
+  }
 }

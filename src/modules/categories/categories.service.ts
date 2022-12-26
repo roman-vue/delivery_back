@@ -5,7 +5,10 @@ import {
   Category,
   CategoryDocument,
 } from 'src/database/schemas/Categories/categories.schema';
-import { CreateNewCategoryDto } from './dto/createCategory.dto';
+import {
+  CreateNewCategoryDto,
+  UpdatedCategoryDto,
+} from './dto/createCategory.dto';
 
 @Injectable()
 export class CategoriesService {
@@ -32,7 +35,16 @@ export class CategoriesService {
     return findCategory;
   }
 
-  public async updated(idCategory: string) {}
+  public async updated(
+    idCategory: string,
+    { name_category, description_category }: UpdatedCategoryDto,
+  ) {
+    const findCategory = await this.getOneCategory(idCategory);
+    findCategory.name_category = name_category;
+    findCategory.description_category = description_category;
+    const updateCategory = new this.categoryModel(findCategory);
+    const save = await updateCategory.save();
+  }
 
   public async deleted(idCategory: string) {
     const findCategory = await this.categoryModel.findOne({ id: idCategory });
