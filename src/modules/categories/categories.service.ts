@@ -8,7 +8,7 @@ import {
 import {
   CreateNewCategoryDto,
   UpdatedCategoryDto,
-} from './dto/createCategory.dto';
+} from './dto/input/createCategory.dto';
 
 @Injectable()
 export class CategoriesService {

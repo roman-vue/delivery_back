@@ -12,12 +12,12 @@ import { CategoriesService } from './categories.service';
 import {
   CreateNewCategoryDto,
   UpdatedCategoryDto,
-} from './dto/createCategory.dto';
+} from './dto/input/createCategory.dto';
 
 @ApiTags('CATEGORIES')
 @Controller('categories')
 export class CategoriesController {
-  constructor(private categoriesService: CategoriesService) {}
+  constructor(private readonly categoriesService: CategoriesService) {}
 
   @Post('create-new-category')
   public async createNewCategory(
