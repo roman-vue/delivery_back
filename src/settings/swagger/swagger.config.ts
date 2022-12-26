@@ -4,9 +4,9 @@ import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 export class SwaggerConfig {
   public static swaggerConfig(app: any): void {
     const config = new DocumentBuilder()
-      .setTitle(`agenda`)
-      .setDescription(`Remaster Agenda`)
-      .setVersion(`1.0`)
+      .setTitle(`DELIVERY`)
+      .setDescription(`DELVY`)
+      .setVersion(`v0.0.1`)
       .build();
 
     const document = SwaggerModule.createDocument(app, config);

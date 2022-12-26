@@ -1,13 +1,15 @@
-import { ValidationPipe } from '@nestjs/common';
+import { ConfigService } from '@nestjs/config';
+import {
+  AllExceptionFilter,
+  LoggerService,
+  LoggingInterceptor,
+  ResponseInterceptor,
+  SwaggerConfig,
+  TimeoutInterceptor,
+} from './settings';
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
-import { LoggingInterceptor } from './settings/interceptors/logger';
-import { ResponseInterceptor } from './settings/interceptors/responses';
-import { TimeoutInterceptor } from './settings/interceptors/timeout';
-import { AllExceptionFilter } from './settings/filters/index.filter';
-import { SwaggerConfig } from './settings/swagger/swagger.config';
-import { ConfigService } from '@nestjs/config';
-import { LoggerService } from './settings/logger/logger.service';
+import { ValidationPipe } from '@nestjs/common';
 
 async function bootstrap() {
   const configService = new ConfigService();

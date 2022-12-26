@@ -10,6 +10,7 @@ import { OrdersModule } from './modules/orders/orders.module';
 import { AditionalsModule } from './modules/aditionals/aditionals.module';
 import { JwtModule } from './jwt/jwt.module';
 import { AuthModule } from './modules/auth/auth.module';
+import { CategoriesModule } from './modules/categories/categories.module';
 
 @Module({
   imports: [
@@ -22,6 +23,7 @@ import { AuthModule } from './modules/auth/auth.module';
     AditionalsModule,
     JwtModule,
     AuthModule,
+    CategoriesModule,
   ],
   controllers: [AppController],
   providers: [AppService],
