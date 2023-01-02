@@ -10,5 +10,6 @@ import { Menu, MenuSchema } from 'src/database/schemas/Menu/menu.schema';
   ],
   controllers: [MenuController],
   providers: [MenuService],
+  exports: [MenuService],
 })
 export class MenuModule {}

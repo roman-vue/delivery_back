@@ -18,12 +18,9 @@ export class Order {
   money_value: string;
   @Prop({ required: false })
   nequi_attachment: string;
-  @Prop({ type: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Menu' }] })
-  order_menu: Menu;
-  @Prop({
-    required: false,
-    type: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Menu' }],
-  })
-  order_aditional;
+  @Prop()
+  product_menu: Array<Object>;
+  @Prop()
+  order_aditional: Array<Object>;
 }
 export const OrderSchema = SchemaFactory.createForClass(Order);

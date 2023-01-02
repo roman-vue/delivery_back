@@ -15,5 +15,6 @@ import {
   ],
   controllers: [AditionalsController],
   providers: [AditionalsService],
+  exports: [AditionalsService],
 })
 export class AditionalsModule {}
