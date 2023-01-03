@@ -13,6 +13,8 @@ import {
   CreateNewAditionalsDto,
   UpdateAditionalsDto,
 } from './dtos/input/aditionals.dto';
+import { Roles } from 'src/common/decorators/roles.decorator';
+import { Role } from 'src/utils/roles.enum';
 
 @ApiTags('ADITIONALS')
 @Controller('aditionals')
@@ -20,6 +22,7 @@ export class AditionalsController {
   constructor(private readonly aditionalsService: AditionalsService) {}
 
   @Post('create-new-aditionals')
+  @Roles(Role.Admin)
   public async createNewAditionals(
     @Body() createNewAditionalsDto: CreateNewAditionalsDto,
   ) {
@@ -30,18 +33,21 @@ export class AditionalsController {
   }
 
   @Get('all-aditionals')
+  @Roles(Role.Admin)
   public async allAditionals() {
     const data = await this.aditionalsService.allAditionals();
     return data;
   }
 
   @Get('one-aditionals/:idAditionals')
+  @Roles(Role.Admin)
   public async oneAditionals(@Param('idAditionals') idAditionals: string) {
     const data = await this.aditionalsService.getOneAditionals(idAditionals);
     return data;
   }
 
   @Put('update-aditionals/:idAditionals')
+  @Roles(Role.Admin)
   public async updated(
     @Param('idAditionals') idAditionals: string,
     @Body() updateAditionalsDto: UpdateAditionalsDto,
@@ -54,6 +60,7 @@ export class AditionalsController {
   }
 
   @Delete('delete-aditionals/:idAditionals')
+  @Roles(Role.Admin)
   public async deleted(@Param('idAditionals') idAditionals: string) {
     const data = await this.aditionalsService.deleted(idAditionals);
     return data;
