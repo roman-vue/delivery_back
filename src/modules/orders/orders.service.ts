@@ -1,4 +1,4 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import { Injectable, Logger, NotFoundException } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import {
@@ -8,6 +8,9 @@ import {
 import { CreateNewOrderDto } from './dtos/input/orders.dto';
 import { MenuService } from '../menu/menu.service';
 import { AditionalsService } from '../aditionals/aditionals.service';
+import { type } from 'os';
+import { verify } from 'crypto';
+import { StatusOrder } from 'src/utils/statusOrder.enum';
 
 @Injectable()
 export class OrdersService {
@@ -19,7 +22,23 @@ export class OrdersService {
   ) {}
 
   public async createOrder(createNewOrderDto: CreateNewOrderDto) {
-    const newOrder = new this.ordersModel(createNewOrderDto);
+    const verifyMenu = await this.verifyMenu(createNewOrderDto.order_menu);
+    console.log('verifyMenu :>> ', verifyMenu);
+    const verifyAditionals = await this.verifyAditionals(
+      createNewOrderDto.order_aditional,
+    );
+    const buildOrder = {
+      name_user: createNewOrderDto.name_user,
+      phone: createNewOrderDto.phone,
+      direction_order: createNewOrderDto.direction_order,
+      type_pay: createNewOrderDto.type_pay,
+      money_value: createNewOrderDto.money_value,
+      product_menu: verifyMenu,
+      order_aditional: verifyAditionals,
+      total_price: '100000',
+      status_order: StatusOrder.PEDIDO,
+    };
+    const newOrder = new this.ordersModel(buildOrder);
     const save = await newOrder.save();
     return save;
   }
@@ -30,5 +49,27 @@ export class OrdersService {
       throw new NotFoundException(`oops this order does exist`);
     }
     return findOrder;
+  }
+
+  private async verifyMenu(idsMenu: Array<string>) {
+    let order = [];
+    for (const iterator_id of idsMenu) {
+      const verify = await this.menuService.findOneMenu(iterator_id);
+      order.push(verify);
+    }
+    return order;
+  }
+
+  private async verifyAditionals(idsAditionals: Array<string>) {
+    if (!idsAditionals) {
+      Logger.debug(`not aditionals`);
+      return [];
+    }
+    let order_aditional = [];
+    for (const iterator_id of idsAditionals) {
+      const verify = await this.aditionalsService.getOneAditionals(iterator_id);
+      order_aditional.push(verify);
+    }
+    return order_aditional;
   }
 }

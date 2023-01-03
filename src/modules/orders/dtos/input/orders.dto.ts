@@ -28,16 +28,17 @@ export class CreateNewOrderDto {
   @ApiProperty({ required: false })
   @IsOptional()
   money_value: string;
-  @ApiProperty({ required: false })
-  @IsOptional()
-  nequi_attachment: string;
   @ApiProperty({ type: Array, required: true })
   order_menu: Array<string>;
   @ApiProperty({ type: Array, required: true })
+  @IsOptional()
   order_aditional: Array<string>;
-  @IsString()
+
+  // @ApiProperty({ required: false })
+  // @IsOptional()
+  // nequi_attachment: string;
   total_price: string;
-  @IsString()
+
   status_order: StatusOrder;
 }
 
