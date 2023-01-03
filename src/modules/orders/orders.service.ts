@@ -23,10 +23,10 @@ export class OrdersService {
 
   public async createOrder(createNewOrderDto: CreateNewOrderDto) {
     const verifyMenu = await this.verifyMenu(createNewOrderDto.order_menu);
-    console.log('verifyMenu :>> ', verifyMenu);
     const verifyAditionals = await this.verifyAditionals(
       createNewOrderDto.order_aditional,
     );
+    const totalPrice = await this.SumPrice(verifyMenu, verifyAditionals);
     const buildOrder = {
       name_user: createNewOrderDto.name_user,
       phone: createNewOrderDto.phone,
@@ -35,7 +35,7 @@ export class OrdersService {
       money_value: createNewOrderDto.money_value,
       product_menu: verifyMenu,
       order_aditional: verifyAditionals,
-      total_price: '100000',
+      total_price: totalPrice,
       status_order: StatusOrder.PEDIDO,
     };
     const newOrder = new this.ordersModel(buildOrder);
@@ -71,5 +71,24 @@ export class OrdersService {
       order_aditional.push(verify);
     }
     return order_aditional;
+  }
+
+  private async SumPrice(
+    priceProduct: Array<any>,
+    priceAditionals: Array<any>,
+  ) {
+    let value_aditionals = 0;
+    let value_product = 0;
+    if (priceAditionals.length <= 0) {
+      value_aditionals = 0;
+    }
+    const totalProduct = priceProduct.forEach(
+      (ele) => (value_product += Number(ele.price_product)),
+    );
+    const totalAditional = priceAditionals.forEach(
+      (ele) => (value_aditionals += Number(ele.price_aditionals)),
+    );
+    const sum = value_product + value_aditionals;
+    return sum;
   }
 }
