@@ -7,6 +7,7 @@ import {
 } from 'src/database/schemas/Orders/orders.schema';
 import { CreateNewOrderDto } from './dtos/input/orders.dto';
 import { MenuService } from '../menu/menu.service';
+import { AditionalsService } from '../aditionals/aditionals.service';
 
 @Injectable()
 export class OrdersService {
@@ -14,7 +15,7 @@ export class OrdersService {
     @InjectModel(Order.name)
     private readonly ordersModel: Model<OrdersDocument>,
     private readonly menuService: MenuService,
-    private readonly orderService: OrdersService,
+    private readonly aditionalsService: AditionalsService,
   ) {}
 
   public async createOrder(createNewOrderDto: CreateNewOrderDto) {
@@ -30,6 +31,4 @@ export class OrdersService {
     }
     return findOrder;
   }
-
-  private verifyIdProductMenu(idProductMenu: string) {}
 }

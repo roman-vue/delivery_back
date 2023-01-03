@@ -7,7 +7,7 @@ export type OrdersDocument = HydratedDocument<Order>;
 @Schema()
 export class Order {
   @Prop()
-  name_user;
+  name_user: string;
   @Prop()
   phone: string;
   @Prop()
@@ -22,5 +22,9 @@ export class Order {
   product_menu: Array<Object>;
   @Prop()
   order_aditional: Array<Object>;
+  @Prop()
+  total_price: string;
+  @Prop()
+  status_order: string;
 }
 export const OrderSchema = SchemaFactory.createForClass(Order);

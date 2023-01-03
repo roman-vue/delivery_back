@@ -5,14 +5,28 @@ import { Menu, MenuDocument } from 'src/database/schemas/Menu/menu.schema';
 import { CreateNewMenuDto, UpdatedMenuDto } from './dtos/input/menu.dto';
 import { NotFoundException } from '@nestjs/common/exceptions';
 import { find } from 'rxjs';
+import { CategoriesService } from '../categories/categories.service';
 
 @Injectable()
 export class MenuService {
-  constructor(@InjectModel(Menu.name) private menuModel: Model<MenuDocument>) {}
+  constructor(
+    private readonly categoriesService: CategoriesService,
+    @InjectModel(Menu.name) private menuModel: Model<MenuDocument>,
+  ) {}
 
   public async createMenu(createNewMenuDto: CreateNewMenuDto) {
-    const buildMenu = new this.menuModel(createNewMenuDto);
-    const save = await buildMenu.save();
+    const verifyCategory = await this.categoriesService.getOneCategory(
+      createNewMenuDto.category,
+    );
+    const buildMenu = {
+      category: verifyCategory,
+      name_product: createNewMenuDto.name_product,
+      price_product: createNewMenuDto.price_product,
+      img_product: createNewMenuDto.img_product,
+    };
+    const saveMenu = new this.menuModel(buildMenu);
+    const save = await saveMenu.save();
+    return save;
   }
 
   public async allMenu() {
@@ -27,12 +41,12 @@ export class MenuService {
     }
     return findMenu;
   }
+
   public async updated(
     idMenu: string,
-    { name_menu, price_product, img_product }: UpdatedMenuDto,
+    { price_product, img_product }: UpdatedMenuDto,
   ) {
     const findMenu = await this.findOneMenu(idMenu);
-    findMenu.name_menu = name_menu;
     findMenu.price_product = price_product;
     findMenu.img_product = img_product;
     const update = new this.menuModel(findMenu);

@@ -6,11 +6,8 @@ export type MenuDocument = HydratedDocument<Menu>;
 
 @Schema()
 export class Menu {
-  @Prop()
-  name_menu: string;
-
-  @Prop({ type: mongoose.Schema.Types.ObjectId, ref: 'Category' })
-  category: Category;
+  @Prop({ type: Object })
+  category: Object;
   @Prop()
   name_product: string;
   @Prop()

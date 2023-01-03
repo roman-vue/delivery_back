@@ -12,7 +12,6 @@ export class CreateNewAditionalsDto {
 
   @ApiProperty({ default: 'img' })
   @IsOptional()
-  @IsBase64()
   img_aditionals: string;
 }
 export class UpdateAditionalsDto extends PartialType(CreateNewAditionalsDto) {}
