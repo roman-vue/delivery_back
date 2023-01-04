@@ -5,8 +5,8 @@ import { CreateNewMenuDto, UpdatedMenuDto } from './dtos/input/menu.dto';
 import { Delete } from '@nestjs/common/decorators';
 import { Role } from 'src/utils/roles.enum';
 import { Roles } from 'src/common/decorators/roles.decorator';
-@ApiBearerAuth()
 @ApiTags('MENU')
+@ApiBearerAuth()
 @Controller('menu')
 export class MenuController {
   constructor(private readonly menuService: MenuService) {}

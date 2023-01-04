@@ -10,6 +10,7 @@ import {
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 import { ValidationPipe } from '@nestjs/common';
+import { AccessGuard } from './guard/access-guard.guard';
 
 async function bootstrap() {
   const configService = new ConfigService();
@@ -22,6 +23,7 @@ async function bootstrap() {
     new ResponseInterceptor(),
     new TimeoutInterceptor(),
   );
+  // app.useGlobalGuards(new AccessGuard());
   app.useGlobalFilters(new AllExceptionFilter(logger));
   app.useGlobalPipes(new ValidationPipe());
   app.enableCors();

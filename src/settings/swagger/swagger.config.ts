@@ -4,6 +4,7 @@ import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 export class SwaggerConfig {
   public static swaggerConfig(app: any): void {
     const config = new DocumentBuilder()
+      .addBearerAuth()
       .setTitle(`DELIVERY`)
       .setDescription(`DELVY`)
       .setVersion(`v0.0.1`)

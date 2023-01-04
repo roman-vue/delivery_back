@@ -4,8 +4,9 @@ import { OrdersService } from './orders.service';
 import { CreateNewOrderDto } from './dtos/input/orders.dto';
 import { Roles } from 'src/common/decorators/roles.decorator';
 import { Role } from 'src/utils/roles.enum';
-@ApiBearerAuth()
+
 @ApiTags('Orders')
+@ApiBearerAuth()
 @Controller('orders')
 export class OrdersController {
   constructor(private readonly ordersService: OrdersService) {}

@@ -11,6 +11,8 @@ import { AditionalsModule } from './modules/aditionals/aditionals.module';
 import { JwtModule } from './jwt/jwt.module';
 import { AuthModule } from './modules/auth/auth.module';
 import { CategoriesModule } from './modules/categories/categories.module';
+import { APP_GUARD } from '@nestjs/core';
+import { AccessGuard } from './guard/access-guard.guard';
 
 @Module({
   imports: [
@@ -26,6 +28,12 @@ import { CategoriesModule } from './modules/categories/categories.module';
     CategoriesModule,
   ],
   controllers: [AppController],
-  providers: [AppService],
+  providers: [
+    AppService,
+    {
+      provide: APP_GUARD,
+      useClass: AccessGuard,
+    },
+  ],
 })
 export class AppModule {}

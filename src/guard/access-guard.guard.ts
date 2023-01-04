@@ -1,22 +1,45 @@
-import { CanActivate, ExecutionContext, Injectable } from '@nestjs/common';
+import {
+  Injectable,
+  CanActivate,
+  ExecutionContext,
+  BadRequestException,
+  ForbiddenException,
+} from '@nestjs/common';
+import { Logger } from '@nestjs/common';
 import { Reflector } from '@nestjs/core';
-import { Observable } from 'rxjs';
-import { ROLES_KEY } from 'src/common/decorators/roles.decorator';
-import { Role } from 'src/utils/roles.enum';
+import * as jwt from 'jsonwebtoken';
+import { JwtService } from '../jwt/jwt.service';
 
 @Injectable()
-export class AccessGuardGuard implements CanActivate {
-  constructor(private reflector: Reflector) {}
+export class AccessGuard implements CanActivate {
+  constructor(
+    private readonly reflector: Reflector,
+    private readonly jwtService: JwtService,
+  ) {}
 
-  canActivate(context: ExecutionContext): boolean {
-    const requiredRoles = this.reflector.getAllAndOverride<Role[]>(ROLES_KEY, [
-      context.getHandler(),
-      context.getClass(),
-    ]);
-    if (!requiredRoles) {
-      return true;
+  async canActivate(context: ExecutionContext) {
+    const roles = this.reflector.get<string[]>('roles', context.getHandler());
+    const request = context.switchToHttp().getRequest();
+
+    const auth = request.headers['authorization'];
+    const token = auth && auth.split(' ')[1];
+    if (!token) {
+      throw new ForbiddenException('token undefined');
     }
-    const { user } = context.switchToHttp().getRequest();
-    return requiredRoles.some((role) => user.roles?.includes(role));
+    if (typeof token === 'undefined' || token === null)
+      throw new ForbiddenException('token undefined');
+    request.user = <jwt.JwtPayload>await this.jwtService.verifyToken(token);
+
+    if (!roles.length) return true;
+
+    const rol = await this.jwtService.typeRole(request.user.id);
+
+    let role = false;
+    for (const pro in roles) {
+      if (roles[pro] == rol) role = true;
+    }
+    if (!role) throw new BadRequestException('role not allowed');
+
+    return true;
   }
 }

@@ -15,8 +15,8 @@ import {
 } from './dto/input/createCategory.dto';
 import { Role } from 'src/utils/roles.enum';
 import { Roles } from 'src/common/decorators/roles.decorator';
-@ApiBearerAuth()
 @ApiTags('CATEGORIES')
+@ApiBearerAuth()
 @Controller('categories')
 export class CategoriesController {
   constructor(private readonly categoriesService: CategoriesService) {}

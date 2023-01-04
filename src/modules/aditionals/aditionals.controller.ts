@@ -15,8 +15,8 @@ import {
 } from './dtos/input/aditionals.dto';
 import { Roles } from 'src/common/decorators/roles.decorator';
 import { Role } from 'src/utils/roles.enum';
-@ApiBearerAuth()
 @ApiTags('ADITIONALS')
+@ApiBearerAuth()
 @Controller('aditionals')
 export class AditionalsController {
   constructor(private readonly aditionalsService: AditionalsService) {}
