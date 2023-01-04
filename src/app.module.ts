@@ -13,6 +13,7 @@ import { AuthModule } from './modules/auth/auth.module';
 import { CategoriesModule } from './modules/categories/categories.module';
 import { APP_GUARD } from '@nestjs/core';
 import { AccessGuard } from './guard/access-guard.guard';
+import { ConfigurationsModule } from './modules/configurations/configurations.module';
 
 @Module({
   imports: [
@@ -26,6 +27,7 @@ import { AccessGuard } from './guard/access-guard.guard';
     JwtModule,
     AuthModule,
     CategoriesModule,
+    ConfigurationsModule,
   ],
   controllers: [AppController],
   providers: [
