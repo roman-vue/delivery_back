@@ -1,9 +1,10 @@
 import { Body, Controller, Get, Param, Post } from '@nestjs/common';
-import { ApiTags } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 import { OrdersService } from './orders.service';
 import { CreateNewOrderDto } from './dtos/input/orders.dto';
 import { Roles } from 'src/common/decorators/roles.decorator';
 import { Role } from 'src/utils/roles.enum';
+@ApiBearerAuth()
 @ApiTags('Orders')
 @Controller('orders')
 export class OrdersController {

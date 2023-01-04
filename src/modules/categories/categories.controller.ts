@@ -7,7 +7,7 @@ import {
   Post,
   Put,
 } from '@nestjs/common';
-import { ApiTags } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 import { CategoriesService } from './categories.service';
 import {
   CreateNewCategoryDto,
@@ -15,7 +15,7 @@ import {
 } from './dto/input/createCategory.dto';
 import { Role } from 'src/utils/roles.enum';
 import { Roles } from 'src/common/decorators/roles.decorator';
-
+@ApiBearerAuth()
 @ApiTags('CATEGORIES')
 @Controller('categories')
 export class CategoriesController {

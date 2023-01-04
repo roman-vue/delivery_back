@@ -1,10 +1,11 @@
 import { Body, Controller, Get, Param, Post, Put } from '@nestjs/common';
-import { ApiTags } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 import { MenuService } from './menu.service';
 import { CreateNewMenuDto, UpdatedMenuDto } from './dtos/input/menu.dto';
 import { Delete } from '@nestjs/common/decorators';
 import { Role } from 'src/utils/roles.enum';
 import { Roles } from 'src/common/decorators/roles.decorator';
+@ApiBearerAuth()
 @ApiTags('MENU')
 @Controller('menu')
 export class MenuController {

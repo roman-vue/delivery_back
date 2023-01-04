@@ -7,13 +7,13 @@ import {
   Post,
   Put,
 } from '@nestjs/common';
-import { ApiTags } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 import { AdminService } from './admin.service';
 import { CreateUserAdminDto } from './dtos/input/createUserAdmin.dto';
 import { UpdateUserAdminDto } from './dtos/input/updateUserAdmin.dto';
 import { Role } from 'src/utils/roles.enum';
 import { Roles } from 'src/common/decorators/roles.decorator';
-
+@ApiBearerAuth()
 @ApiTags('ADMIN')
 @Controller('admin')
 export class AdminController {

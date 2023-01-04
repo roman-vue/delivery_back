@@ -7,7 +7,7 @@ import {
   Post,
   Put,
 } from '@nestjs/common';
-import { ApiTags } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 import { AditionalsService } from './aditionals.service';
 import {
   CreateNewAditionalsDto,
@@ -15,7 +15,7 @@ import {
 } from './dtos/input/aditionals.dto';
 import { Roles } from 'src/common/decorators/roles.decorator';
 import { Role } from 'src/utils/roles.enum';
-
+@ApiBearerAuth()
 @ApiTags('ADITIONALS')
 @Controller('aditionals')
 export class AditionalsController {
