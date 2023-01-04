@@ -36,9 +36,6 @@ export class JwtService {
     if (!user.role) throw new BadRequestException('access not allowed');
     let rol = '';
     switch (user.role) {
-      case 'user':
-        rol = 'user';
-        break;
       case 'admin':
         rol = 'admin';
         break;
