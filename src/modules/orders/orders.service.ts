@@ -4,7 +4,7 @@ import { Model } from 'mongoose';
 import {
   Order,
   OrdersDocument,
-} from 'src/database/schemas/Orders/orders.schema';
+} from '../../database/schemas/orders/orders.schema';
 import { CreateNewOrderDto } from './dtos/input/orders.dto';
 import { MenuService } from '../menu/menu.service';
 import { AditionalsService } from '../aditionals/aditionals.service';
