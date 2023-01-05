@@ -14,10 +14,13 @@ import { CategoriesModule } from './modules/categories/categories.module';
 import { APP_GUARD } from '@nestjs/core';
 import { AccessGuard } from './guard/access-guard.guard';
 import { ConfigurationsModule } from './modules/configurations/configurations.module';
+import { VerifyHourModule } from './cron/verify-hour/verify-hour.module';
+import { ScheduleModule } from '@nestjs/schedule';
 
 @Module({
   imports: [
     ConfigModule.forRoot({ envFilePath: '.env', isGlobal: true }),
+    ScheduleModule.forRoot(),
     LoggerModule,
     AdminModule,
     DatabaseModule,
@@ -28,14 +31,9 @@ import { ConfigurationsModule } from './modules/configurations/configurations.mo
     AuthModule,
     CategoriesModule,
     ConfigurationsModule,
+    VerifyHourModule,
   ],
   controllers: [AppController],
-  providers: [
-    AppService,
-    {
-      provide: APP_GUARD,
-      useClass: AccessGuard,
-    },
-  ],
+  providers: [AppService],
 })
 export class AppModule {}

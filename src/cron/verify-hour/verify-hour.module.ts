@@ -1,6 +1,6 @@
 import { Module } from '@nestjs/common';
-import { ConfigurationsService } from './configurations.service';
-import { ConfigurationsController } from './configurations.controller';
+import { VerifyHourController } from './verify-hour.controller';
+import { VerifyHourService } from './verify-hour.service';
 import { MongooseModule } from '@nestjs/mongoose';
 import {
   Configuration,
@@ -13,8 +13,7 @@ import {
       { name: Configuration.name, schema: ConfigurationSchema },
     ]),
   ],
-  providers: [ConfigurationsService],
-  controllers: [ConfigurationsController],
-  exports: [ConfigurationsService],
+  controllers: [VerifyHourController],
+  providers: [VerifyHourService],
 })
-export class ConfigurationsModule {}
+export class VerifyHourModule {}

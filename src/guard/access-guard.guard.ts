@@ -18,6 +18,7 @@ export class AccessGuard implements CanActivate {
   ) {}
 
   async canActivate(context: ExecutionContext) {
+    console.log('aa :>> ', 'aa');
     const roles = this.reflector.get<string[]>('roles', context.getHandler());
     const request = context.switchToHttp().getRequest();
 

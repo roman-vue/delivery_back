@@ -1,4 +1,12 @@
-import { Controller, Param, Post, Put, Query } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Param,
+  Patch,
+  Post,
+  Put,
+  Query,
+} from '@nestjs/common';
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 import { ConfigurationsService } from './configurations.service';
 import { HoursDto } from './input/hours.dto';
@@ -8,12 +16,45 @@ import { HoursDto } from './input/hours.dto';
 export class ConfigurationsController {
   constructor(private readonly configurationsService: ConfigurationsService) {}
 
-  @Post('configurations')
-  public async configurationsApp(@Query() hoursDto: HoursDto) {}
+  @Post('new/:hourInit/:hourEnd')
+  public async configurationsApp(
+    @Param('hourInit') hourInit: string,
+    @Param('hourEnd') hourEnd: string,
+  ) {
+    const data = await this.configurationsService.configurationdd(
+      hourInit,
+      hourEnd,
+    );
+    return data;
+  }
 
-  @Put('configurations/:idConfiguration')
+  @Patch('changes-status-app/:paramOpenOrClose')
   public async updatedConfigurations(
-    @Param('idConfiguration') idConfiguration: string,
-    @Query() hoursDto: HoursDto,
-  ) {}
+    @Param('paramOpenOrClose') paramOpenOrClose: boolean,
+  ) {
+    const data = await this.configurationsService.changesStatus(
+      paramOpenOrClose,
+    );
+    return data;
+  }
+
+  @Get('get-configuration')
+  public async getConfigurations() {
+    const data = await this.configurationsService.getConfig();
+    return data;
+  }
+
+  @Put('updated/:idConfigurations/:hourInit/:hourEnd')
+  public async updated(
+    @Param('idConfigurations') idConfigurations: string,
+    @Param('hourInit') hourInit: string,
+    @Param('hourEnd') hourEnd: string,
+  ) {
+    const data = await this.configurationsService.updated(
+      idConfigurations,
+      hourInit,
+      hourEnd,
+    );
+    return data;
+  }
 }
